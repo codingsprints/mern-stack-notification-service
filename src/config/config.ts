@@ -21,13 +21,26 @@ interface Config {
   hostname: string;
   jwksUri: string;
   broker: string;
+  mailhost: string;
+  mailport: number;
+  mailuser: string;
+  mailpass: string;
+  mailfrom: string;
+  clientUI: string;
 }
 
 export const configENV: Config = {
   port: config.get("server.port") || 5005,
   nodeEnv: process.env.NODE_ENV || "production",
-  baseUrl: config.get("server.baseUrl") ?? "/pizza-app/catalog-service/api/v1",
+  baseUrl:
+    config.get("server.baseUrl") ?? "/pizza-app/notification-service/api/v1",
   hostname: config.get("server.hostname") ?? "localhost",
   jwksUri: config.get("auth.jwksUri") || "",
   broker: config.get("kafka.broker"),
+  mailhost: config.get("mail.host") || "",
+  mailport: config.get("mail.port") || 0,
+  mailuser: config.get("mail.auth.user") || "",
+  mailpass: config.get("mail.auth.pass") || "",
+  mailfrom: config.get("mail.from") || "",
+  clientUI: config.get("frontend.clientUI") || "",
 };

@@ -3,6 +3,7 @@ import { Consumer, EachMessagePayload, Kafka, KafkaConfig } from "kafkajs";
 import { MessageBroker } from "../types/broker";
 import { createNotificationTransport } from "../factories/notification-factory";
 import { handleOrderHtml, handleOrderText } from "../handlers/orderHander";
+import { configENV } from "./config";
 
 export class KafkaBroker implements MessageBroker {
   private consumer: Consumer;
@@ -55,7 +56,7 @@ export class KafkaBroker implements MessageBroker {
         message,
       }: EachMessagePayload) => {
         // Logic to handle incoming messages.
-        console.log({
+        console.log("order messaging =======> ", {
           value: message.value.toString(),
           topic,
           partition,
@@ -67,8 +68,11 @@ export class KafkaBroker implements MessageBroker {
 
           const order = JSON.parse(message.value.toString());
 
+          console.log("order mailer ->", order);
+
           await transport.send({
-            to: order.data.customerId.email || config.get("mail.from"),
+            to: order.data.customerId.email,
+            // to: "dangaroshiyaparth@gmail.com",
             subject: "Order update.",
             text: handleOrderText(order),
             html: handleOrderHtml(order),
