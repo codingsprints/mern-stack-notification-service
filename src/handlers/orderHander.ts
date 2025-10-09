@@ -1,4 +1,3 @@
-import config from "config";
 import { OrderEvents, PaymentMode } from "../types";
 import { configENV } from "../config/config";
 

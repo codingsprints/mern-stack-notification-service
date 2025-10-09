@@ -1,4 +1,3 @@
-import config from "config";
 import nodemailer, { Transporter } from "nodemailer";
 import { Message, NotificationTransport } from "./types/notification-types";
 import { configENV } from "./config/config";
